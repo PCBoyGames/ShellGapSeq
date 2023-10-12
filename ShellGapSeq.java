@@ -267,6 +267,7 @@ public class ShellGapSeq {
             else {
                 System.err.println("PROBLEM PARSING DISTIBUION: " + args[a + 1]);
                 System.err.println("DEFAULT WILL BE USED: RANDOM");
+                dist = "random";
             }
         }
         a = argsContain(args, "--detail");
