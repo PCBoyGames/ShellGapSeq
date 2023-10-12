@@ -165,19 +165,19 @@ public class ShellGapSeq {
         if (dist.equals("randomlenpower")) for (int i = 1; i < seqLen; i++) seq[i] = (int) Math.round(Math.pow(length, 1.0 * randInt(1, length / 2) / (length / 2)));
         if (dist.equals("ciura")) {
             for (int i = 1; i < ciura.length && i < seqLen; i++) seq[i] = ciura[i];
-            for (int i = ciura.length; i < seqLen; i++) seq[i] = (int) Math.pow(2.25, i + 1);
+            for (int i = ciura.length; i < seqLen; i++) seq[i] = (int) (2.25d * seq[i - 1]);
         }
         if (dist.equals("ciura-2246")) {
             for (int i = 1; i < ciura.length && i < seqLen; i++) seq[i] = ciura[i];
-            for (int i = ciura.length; i < seqLen; i++) seq[i] = (int) Math.pow(2.246, i + 1);
+            for (int i = ciura.length; i < seqLen; i++) seq[i] = seq[i] = (int) (2.246d * seq[i - 1]);
         }
         if (dist.equals("ciura1750")) {
             for (int i = 1; i < ciura1750.length && i < seqLen; i++) seq[i] = ciura1750[i];
-            for (int i = ciura1750.length; i < seqLen; i++) seq[i] = (int) Math.pow(2.25, i + 1);
+            for (int i = ciura1750.length; i < seqLen; i++) seq[i] = (int) (2.25d * seq[i - 1]);
         }
         if (dist.equals("ciura1750-2246")) {
             for (int i = 1; i < ciura1750.length && i < seqLen; i++) seq[i] = ciura1750[i];
-            for (int i = ciura1750.length; i < seqLen; i++) seq[i] = (int) Math.pow(2.246, i + 1);
+            for (int i = ciura1750.length; i < seqLen; i++) seq[i] = (int) (2.246d * seq[i - 1]);
         }
         Arrays.sort(seq, 1, seqLen);
         seq[0] = 1;
