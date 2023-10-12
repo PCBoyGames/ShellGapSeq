@@ -27,8 +27,6 @@ public class ShellGapSeq {
     static int[] ciura = {1, 4, 10, 23, 57, 132, 301, 701};
     static int[] ciura1750 = {1, 4, 10, 23, 57, 132, 301, 701, 1750};
 
-    static int lastSel = 1;
-
     static String dist = "ciura1750-2246";
 
     protected static int randInt(int min, int max) {
@@ -135,7 +133,6 @@ public class ShellGapSeq {
             for (sel = seqLen - 1; seq[sel] < seq[sel - 1] && sel >= 1; sel--) swap(seq, sel - 1, sel);
             tested[sel] = true;
         }
-        lastSel = sel;
     }
 
     protected static void printSeq(int[] a) {
