@@ -101,7 +101,7 @@ public class ShellGapSeq {
             for (int i = sel; i < seqLen - 1; i++) seq[i] = seq[i + 1];
             int best = selVal;
             for (int a = nextFit(1); a < length / 2; a = nextFit(a)) {
-                if (true) {
+                if (a != selVal) {
                     selectAny = true;
                     comps = 0;
                     seq[seqLen - 1] = a;
@@ -176,6 +176,12 @@ public class ShellGapSeq {
             for (int i = 1; i < ciura1750.length && i < seqLen; i++) seq[i] = ciura1750[i];
             for (int i = ciura1750.length; i < seqLen; i++) seq[i] = (int) (2.246d * seq[i - 1]);
         }
+        if (dist.equals("tokuda")) for (int i = 1; i < seqLen; i++) seq[i] = (int) Math.ceil((Math.pow(2.25, i + 1) - 1) / 1.25);
+        if (dist.equals("tokudafloor")) for (int i = 1; i < seqLen; i++) seq[i] = (int) Math.floor((Math.pow(2.25, i + 1) - 1) / 1.25);
+        if (dist.equals("aphimult")) {
+            seq[0] = 1;
+            for (int i = 1; i < seqLen; i++) seq[i] = seq[i - 1] >= 401 ? (int) Math.floor(2.26993 * (seq[i - 1] - 1) + 1) : (int) Math.ceil(2.39 * (seq[i - 1] + 1) - 1);
+        }
         Arrays.sort(seq, 1, seqLen);
         seq[0] = 1;
         if (!silent) printSeq(seq);
@@ -205,7 +211,7 @@ public class ShellGapSeq {
 
     protected static boolean validDistribution(String match) {
         String m = match.toLowerCase();
-        return m.equals("random") || m.equals("forcehigh") || m.equals("lenpower") || m.equals("randomlenpower") || m.equals("ciura") || m.equals("ciura-2246") || m.equals("ciura1750") || m.equals("ciura1750-2246");
+        return m.equals("random") || m.equals("forcehigh") || m.equals("lenpower") || m.equals("randomlenpower") || m.equals("ciura") || m.equals("ciura-2246") || m.equals("ciura1750") || m.equals("ciura1750-2246") || m.equals("tokuda") || m.equals("tokudafloor") || m.equals("aphimult");
     }
 
     protected static int argsContain(String[] args, String match) {
@@ -263,8 +269,8 @@ public class ShellGapSeq {
             if (validDistribution(args[a + 1])) dist = args[a + 1];
             else {
                 System.err.println("PROBLEM PARSING DISTIBUION: " + args[a + 1]);
-                System.err.println("DEFAULT WILL BE USED: RANDOM");
-                dist = "random";
+                System.err.println("DEFAULT WILL BE USED: CIURA1750-2246");
+                dist = "ciura1750-2246";
             }
         }
         a = argsContain(args, "--detail");
@@ -321,6 +327,7 @@ public class ShellGapSeq {
         if (doInter) {
             int intermediation = seqLen;
             for (int i = 1; i <= intermediation; i++) {
+                System.err.println("SEQLEN: " + i);
                 seqLen = i;
                 seq = new int[seqLen];
                 tested = new boolean[seqLen];
