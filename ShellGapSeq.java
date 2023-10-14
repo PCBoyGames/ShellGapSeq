@@ -57,7 +57,12 @@ public class ShellGapSeq {
     protected static int nextFit(int v) {
         for (int i = v + 1; i < length / 2; i++) {
             boolean trial = true;
-            for (int j = (int) Math.round(i / 1.9); j < i * 1.9 && trial; j++) if (contains(j)) trial = false;
+            for (int j = (int) Math.round(i / 1.9); j < i * 1.9 && trial; j++) {
+                if (contains(j)) {
+                    trial = false;
+                    i = (int) (j * 1.9) + 1;
+                }
+            }
             if (trial) return i;
         }
         return length / 2;
